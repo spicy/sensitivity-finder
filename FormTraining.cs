@@ -13,18 +13,29 @@ namespace SensitivityFinder
 {
     public partial class FormTraining : Form
     {
+        Collection collection = new Collection();
         PointList targetPoints = new PointList(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, Settings.NumPoints, Settings.NumPerPoint);
+       
         public FormTraining(Game gameType, double fov, double sensitivity, int numPoints, int numPerPoint)
         {
             InitializeComponent();
             MouseDownFilter mouseFilter = new MouseDownFilter(this);
-            mouseFilter.FormClicked += mouseFilter_FormClicked;
+            mouseFilter.FormClicked += MouseFilter_FormClicked;
             Application.AddMessageFilter(mouseFilter);
+
+            Application.AddMessageFilter(new MouseMessageFilter());
+            MouseMessageFilter.MouseMove += new MouseEventHandler(OnGlobalMouseMove);
         }
 
         private void FormTraining_Load(object sender, EventArgs e)
         {
+            Settings.PointWidth = targetBtn.Size.Width;
             this.Size = Screen.PrimaryScreen.Bounds.Size;
+            ToNextPoint();
+
+            Cursor.Hide();
+            Point Center = new Point(this.Width / 2, this.Height / 2);
+            System.Windows.Forms.Cursor.Position = Center;
         }
 
         private void FormTraining_KeyDown(object sender, KeyEventArgs e)
@@ -35,25 +46,55 @@ namespace SensitivityFinder
             }
         }
 
-        void mouseFilter_FormClicked(object sender, EventArgs e)
+        private void ToNextPoint()
         {
-            Point Center = new Point(this.Width / 2, this.Height / 2);
-            System.Windows.Forms.Cursor.Position = Center;
-
             targetPoints.NextOrRandomizeList();
             Point newLocation = targetPoints.GetCurrentPoint();
             targetBtn.Location = newLocation;
         }
 
+        void MouseFilter_FormClicked(object sender, EventArgs e)
+        {
+            ClickData curData = new ClickData(targetPoints.GetCurrentPoint(), System.Windows.Forms.Cursor.Position);
+            collection.clickDataList.Add(curData);
 
+            missTypeLbl.Text = curData.missType.ToString();
+            countLbl.Text = collection.clickDataList.Count.ToString();
 
+            // Move to the next point, or randomize the list for an endless cycle
+            targetPoints.NextOrRandomizeList();
 
+            Point Center = new Point(this.Width / 2, this.Height / 2);
+            System.Windows.Forms.Cursor.Position = Center;
+            ToNextPoint();
+        }
 
+        void OnGlobalMouseMove(object sender, MouseEventArgs e)
+        {
+            mousePanel.Location = e.Location;
+        }
+
+        private class MouseMessageFilter : IMessageFilter
+        {
+            public static event MouseEventHandler MouseMove = delegate { };
+            const int WM_MOUSEMOVE = 0x0200;
+
+            public bool PreFilterMessage(ref Message m)
+            {
+                if (m.Msg == WM_MOUSEMOVE)
+                { 
+                    Point mousePosition = Control.MousePosition;
+                    MouseMove(null, new MouseEventArgs(MouseButtons.None, 0, mousePosition.X, mousePosition.Y, 0));
+                }
+                return false;
+            }
+        }
 
         private class MouseDownFilter : IMessageFilter
         {
             public event EventHandler FormClicked;
             private int WM_LBUTTONDOWN = 0x201;
+
             private Form form = null;
 
             [DllImport("user32.dll")]

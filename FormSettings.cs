@@ -52,10 +52,18 @@ namespace SensitivityFinder
         #region Buttons
         private void startBtn_Click(object sender, EventArgs e)
         {
-            FormTraining newForm = new FormTraining(Settings.Game, Settings.Fov, Settings.Sensitivity, Settings.NumPoints, Settings.NumPerPoint);
-            this.Hide();
-            newForm.ShowDialog();
-            this.Close();
+            if (Settings.Sensitivity > 0 && Settings.Sensitivity < 100)
+            {
+                if (Settings.Fov > 0 && Settings.Fov < 200)
+                {
+                    FormTraining newForm = new FormTraining(Settings.Game, Settings.Fov, Settings.Sensitivity, Settings.NumPoints, Settings.NumPerPoint);
+                    this.Hide();
+                    newForm.ShowDialog();
+                    this.Close();
+                }
+                else MessageBox.Show("Make sure the FOV is valid!");
+            }
+            else MessageBox.Show("Make sure the Sensitivity is valid!");
         }
         private void lblExit_Click(object sender, EventArgs e)
         {

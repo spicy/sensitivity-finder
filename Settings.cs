@@ -15,5 +15,7 @@ namespace SensitivityFinder
 
         public static int NumPoints;
         public static int NumPerPoint;
+
+        public static int PointWidth;
     }
 }

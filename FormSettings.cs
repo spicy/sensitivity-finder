@@ -56,7 +56,7 @@ namespace SensitivityFinder
             {
                 if (Settings.Fov > 0 && Settings.Fov < 200)
                 {
-                    FormTraining newForm = new FormTraining(Settings.Game, Settings.Fov, Settings.Sensitivity, Settings.NumPoints, Settings.NumPerPoint);
+                    FormTraining newForm = new FormTraining(Settings.Game, Settings.Fov, Settings.Sensitivity, Settings.NumPoints);
                     this.Hide();
                     newForm.ShowDialog();
                     this.Close();
@@ -93,11 +93,6 @@ namespace SensitivityFinder
             numPointsLbl.Text = numPointsSlider.Value.ToString();
         }
 
-        private void numPerPointSlider_ValueChanged(object sender, Utilities.BunifuSlider.BunifuHScrollBar.ValueChangedEventArgs e)
-        {
-            numPerPointLbl.Text = numPerPointSlider.Value.ToString();
-        }
-
         private void numPointsSlider_Scroll(object sender, Utilities.BunifuSlider.BunifuHScrollBar.ScrollEventArgs e)
         {
             Settings.NumPoints = numPointsSlider.Value;
@@ -107,17 +102,6 @@ namespace SensitivityFinder
             numPointsLbl.Text = numPointsSlider.Value.ToString();
             Settings.NumPoints = numPointsSlider.Value;
         }
-
-        private void numPerPointSlider_Load(object sender, EventArgs e)
-        {
-            numPerPointLbl.Text = numPerPointSlider.Value.ToString();
-            Settings.NumPerPoint = numPerPointSlider.Value;
-        }
-
-        private void numPerPointSlider_Scroll(object sender, Utilities.BunifuSlider.BunifuHScrollBar.ScrollEventArgs e)
-        {
-            Settings.NumPerPoint = numPerPointSlider.Value;
-        }
         #endregion
 
         #region Textboxes
@@ -125,8 +109,8 @@ namespace SensitivityFinder
         {
             if (!Double.TryParse(fovTxt.Text, out Settings.Fov))
             {
-                MessageBox.Show("Numbers only!");
-                fovTxt.Text = "";
+                MessageBox.Show("fov: Numbers only!");
+                fovTxt.ResetText();
             }
         }
 
@@ -134,8 +118,8 @@ namespace SensitivityFinder
         {
             if (!Double.TryParse(sensitivityTxt.Text, out Settings.Sensitivity))
             {
-                MessageBox.Show("Numbers only!");
-                sensitivityTxt.Text = "";
+                MessageBox.Show("sensitivity: Numbers only!");
+                sensitivityTxt.ResetText();
             }
         }
         #endregion
@@ -145,6 +129,28 @@ namespace SensitivityFinder
             if (e.KeyCode == Keys.Escape)
             {
                 Environment.Exit(0);
+            }
+        }
+
+        private bool mouseDown;
+        private Point lastLocation;
+        private void FormSettings_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+            lastLocation = e.Location;
+        }
+
+        private void FormSettings_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+
+        private void FormSettings_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                this.Location = new Point((this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                this.Update();
             }
         }
     }

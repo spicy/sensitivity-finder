@@ -14,9 +14,9 @@ namespace SensitivityFinder
     public partial class FormTraining : Form
     {
         Collection collection = new Collection();
-        PointList targetPoints = new PointList(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, Settings.NumPoints, Settings.NumPerPoint);
+        PointList targetPoints = new PointList(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, Settings.NumPoints);
        
-        public FormTraining(Game gameType, double fov, double sensitivity, int numPoints, int numPerPoint)
+        public FormTraining(Game gameType, double fov, double sensitivity, int numPoints)
         {
             InitializeComponent();
             MouseDownFilter mouseFilter = new MouseDownFilter(this);
@@ -34,6 +34,7 @@ namespace SensitivityFinder
             ToNextPoint();
 
             Cursor.Hide();
+            mousePanel.BringToFront();
             Point Center = new Point(this.Width / 2, this.Height / 2);
             System.Windows.Forms.Cursor.Position = Center;
         }
@@ -43,6 +44,13 @@ namespace SensitivityFinder
             if (e.KeyCode == Keys.Escape)
             {
                 Environment.Exit(0);
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                //leftDiffLbl.Text = Convert.ToString(collection.GetAvgDiff(ScreenSide.LEFT));
+                //deviationLbl.Text = Convert.ToString(collection.GetStandardDeviation());
+                //collection.GetAvgDiff(point);
+                //targetPoints.GetPoint()
             }
         }
 

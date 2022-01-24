@@ -29,13 +29,13 @@ namespace SensitivityFinder
         private int screenWidth, screenHeight, index;
         private List<Point> points = new List<Point>();
 
-        public PointList(int screenWidth, int screenHeight, int numPoints, int numPerPoint)
+        public PointList(int screenWidth, int screenHeight, int numPoints)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.index = 0;
 
-            FillListUniform(numPoints, numPerPoint, 400);
+            FillListUniform(numPoints, 400);
 
             // Twice for extra randomness, technically unnecessary, potentially remove
             RandomizeListPositions();
@@ -122,18 +122,17 @@ namespace SensitivityFinder
         /// <summary>
         /// Fills the list with all necessary target positions, uniformly across the screen
         /// </summary>
-        public void FillListUniform(int numPoints, int numPerPoint, int padding)
+        public void FillListUniform(int numPoints, int padding)
         {
             // Force numPoints to be even.
             if (numPoints % 2 != 0) numPoints--;
 
             int x = padding;
 
-            for (int i = 0; i < (numPoints * numPerPoint); i++)
+            for (int i = 0; i < numPoints; i++)
             {
-                // New point position
-                if (i % numPerPoint == 0 && i != 0) 
-                    x += (this.screenWidth - (padding * 2)) / numPoints;
+                x += (this.screenWidth - (padding * 2)) / numPoints;
+
                 Point newPoint = new Point(x, (this.screenHeight / 2) - 20);
                 points.Add(newPoint);
             }

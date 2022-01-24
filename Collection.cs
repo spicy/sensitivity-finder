@@ -21,7 +21,7 @@ namespace SensitivityFinder
         /// </summary>
         /// <param name="side"> Input: Screenside Type </param>
         /// <returns> Average difference </returns>
-        double GetSideAvgDiff(ScreenSide side)
+        public double GetAvgDiff(ScreenSide side)
         {
             int total = 0;
             double totalDiff = 0;
@@ -44,7 +44,7 @@ namespace SensitivityFinder
         /// </summary>
         /// <param name="point"> Input: reference point </param>
         /// <returns> Average difference </returns>
-        double GetPointAvgDiff(ClickData point)
+        public double GetAvgDiff(ClickData point)
         {
             int total = 0;
             double totalDiff = 0;
@@ -63,10 +63,10 @@ namespace SensitivityFinder
 
         /// <summary>
         /// Gets the standard deviation of the difference
-        /// for all points in vecData
+        /// for all points in clickDataList
         /// </summary>
         /// <returns> standard deviation of difference </returns>
-        double GetStandardDeviation()
+        public double GetStandardDeviation()
         {
             double sum = 0.0, mean, standardDeviation = 0.0;
 

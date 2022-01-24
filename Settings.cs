@@ -12,9 +12,7 @@ namespace SensitivityFinder
         public static double Fov;
 
         public static double Sensitivity;
-
         public static int NumPoints;
-        public static int NumPerPoint;
 
         public static int PointWidth;
     }

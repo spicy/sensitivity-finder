@@ -40,7 +40,7 @@ namespace SensitivityFinder
             this.targetBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.targetBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.targetBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.targetBtn.Location = new System.Drawing.Point(12, 97);
+            this.targetBtn.Location = new System.Drawing.Point(12, 76);
             this.targetBtn.Name = "targetBtn";
             this.targetBtn.Size = new System.Drawing.Size(40, 40);
             this.targetBtn.TabIndex = 2;
@@ -80,7 +80,7 @@ namespace SensitivityFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(25)))), ((int)(((byte)(38)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(75)))), ((int)(((byte)(96)))));
             this.ClientSize = new System.Drawing.Size(1000, 800);
             this.Controls.Add(this.countLbl);
             this.Controls.Add(this.missTypeLbl);

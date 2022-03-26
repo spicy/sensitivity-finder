@@ -33,6 +33,8 @@ namespace SensitivityFinder
             this.mousePanel = new System.Windows.Forms.Panel();
             this.missTypeLbl = new System.Windows.Forms.Label();
             this.countLbl = new System.Windows.Forms.Label();
+            this.deviationLbl = new System.Windows.Forms.Label();
+            this.diffLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // targetBtn
@@ -40,7 +42,7 @@ namespace SensitivityFinder
             this.targetBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.targetBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.targetBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.targetBtn.Location = new System.Drawing.Point(12, 76);
+            this.targetBtn.Location = new System.Drawing.Point(27, 228);
             this.targetBtn.Name = "targetBtn";
             this.targetBtn.Size = new System.Drawing.Size(40, 40);
             this.targetBtn.TabIndex = 2;
@@ -76,12 +78,36 @@ namespace SensitivityFinder
             this.countLbl.TabIndex = 6;
             this.countLbl.Text = "Count";
             // 
+            // deviationLbl
+            // 
+            this.deviationLbl.AutoSize = true;
+            this.deviationLbl.Font = new System.Drawing.Font("Fira Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deviationLbl.ForeColor = System.Drawing.SystemColors.Control;
+            this.deviationLbl.Location = new System.Drawing.Point(8, 53);
+            this.deviationLbl.Name = "deviationLbl";
+            this.deviationLbl.Size = new System.Drawing.Size(39, 20);
+            this.deviationLbl.TabIndex = 7;
+            this.deviationLbl.Text = "dev";
+            // 
+            // diffLbl
+            // 
+            this.diffLbl.AutoSize = true;
+            this.diffLbl.Font = new System.Drawing.Font("Fira Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.diffLbl.ForeColor = System.Drawing.SystemColors.Control;
+            this.diffLbl.Location = new System.Drawing.Point(8, 73);
+            this.diffLbl.Name = "diffLbl";
+            this.diffLbl.Size = new System.Drawing.Size(49, 20);
+            this.diffLbl.TabIndex = 8;
+            this.diffLbl.Text = "diff";
+            // 
             // FormTraining
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(75)))), ((int)(((byte)(96)))));
             this.ClientSize = new System.Drawing.Size(1000, 800);
+            this.Controls.Add(this.diffLbl);
+            this.Controls.Add(this.deviationLbl);
             this.Controls.Add(this.countLbl);
             this.Controls.Add(this.missTypeLbl);
             this.Controls.Add(this.mousePanel);
@@ -103,5 +129,7 @@ namespace SensitivityFinder
         private System.Windows.Forms.Panel mousePanel;
         private System.Windows.Forms.Label missTypeLbl;
         private System.Windows.Forms.Label countLbl;
+        private System.Windows.Forms.Label deviationLbl;
+        private System.Windows.Forms.Label diffLbl;
     }
 }
